@@ -10,7 +10,7 @@ public class CaptureGame {
         game_Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game_Window.setVisible(true);
 
-
+        System.out.println("Testing");
 
         boolean running = true;
 
