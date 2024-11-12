@@ -17,42 +17,57 @@ public class DrawPanel extends JPanel {
         this.collSquareColors = collSquareColors;
 
         // Add mouse listener to handle clicks
-        addMouseListener(new MouseAdapter() {
+        addMouseListener(new MouseAdapter(){ 
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mousePressed(MouseEvent e) {
+                
                 Point clickPoint = e.getPoint();
+
                 for (int i = 0; i < collectionSquares.size(); i++) {
+
                     if (collectionSquares.get(i).contains(clickPoint)) {
-                       //Set the currentLineColor to the same as the square you click on
-                       currentLineColor = collSquareColors.get(i);
-                       repaint(); //apply color change
+
+                        //Set the currentLineColor to the same as the square you click on
+                        currentLineColor = collSquareColors.get(i);
+                        repaint(); //apply color change
+
+                        // Set up mouse listener for real-time drawing
+                        addMouseMotionListener(new MouseMotionAdapter() {
+                            @Override
+                            public void mouseDragged(MouseEvent e) {
+                                points.add(e.getPoint());
+                                repaint();
+                            }
+
+                        });
+                        
                     }
+
+                    else {
+                        
+                    }
+
                 }
+
             }
-        });
-         // Set up mouse listener for real-time drawing
-         addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                points.add(e.getPoint());
-                repaint();
+
+            public void mouseReleased(MouseEvent e) {
+
+                points.removeAll(points);
             }
+
         });
+         
     }
 
-    private Color getOriginalColor(int index) {
-        return switch (index) {
-            case 0 -> Color.RED;
-            case 1 -> Color.BLUE;
-            case 2 -> Color.PINK;
-            case 3 -> Color.YELLOW;
-            default -> Color.BLACK;
-    };
-}
+    
 
     @Override
     protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
+        g2.setStroke(new BasicStroke(5));
         super.paintComponent(g);
+
 
         // Draw each square with its current color
         for (int i = 0; i < collectionSquares.size(); i++) {

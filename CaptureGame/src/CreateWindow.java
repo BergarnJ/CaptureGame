@@ -33,11 +33,9 @@ public class CreateWindow {
          collectionSquares.add(new Rectangle(game_Window.getWidth() - (collectionSize + 50), game_Window.getHeight() - (collectionSize + 50), collectionSize, collectionSize)); // Bottom-right corner
          collSquareColors.add(Color.YELLOW);
 
-        // Assign initial color for each square
-        for (int i = 0; i < 4; i++) {
-            collSquareColors.add(Color.BLUE);
-        }
 
+
+        
         // Create DrawPanel with these squares and colors
         DrawPanel drawPanel = new DrawPanel(collectionSquares, collSquareColors);
         game_Window.add(drawPanel);
