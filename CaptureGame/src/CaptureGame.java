@@ -10,14 +10,17 @@ public class CaptureGame {
                 
 
                 boolean running = true;
-                
                 long lastTime = System.currentTimeMillis();
+
                 while(running){
                         long time = System.currentTimeMillis();
-                        float timestep = (float) (0.001 * (time - lastTime));
-                        if (timestep <= 0 || timestep > 1.0) {
-                                timestep = (float) 0.001;
+                        if (time > lastTime) {
+                                float timestep = (float) (0.001 * (time - lastTime));
+                                
+
+                                System.out.println("Timestep = " + timestep);
                         }
+                       
                         
                         lastTime = time;
                 }

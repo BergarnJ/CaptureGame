@@ -70,7 +70,7 @@ public class DrawPanel extends JPanel {
         });
          
     }
-
+    
     
 
     @Override
@@ -92,5 +92,6 @@ public class DrawPanel extends JPanel {
             Point p2 = points.get(i);
             g.drawLine(p1.x, p1.y, p2.x, p2.y);
         }
+        
     }
 }
