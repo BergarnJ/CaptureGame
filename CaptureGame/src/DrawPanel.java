@@ -10,6 +10,7 @@ public class DrawPanel extends JPanel {
     private final List<Rectangle> collectionSquares;
     private final List<Color> collSquareColors;
     private Color currentLineColor = Color.BLACK;
+    private boolean canDraw = false;
 
     // Constructor that accepts squares and colors from CreateWindow
     public DrawPanel(List<Rectangle> collectionSquares, List<Color> collSquareColors) {
@@ -22,24 +23,19 @@ public class DrawPanel extends JPanel {
             public void mousePressed(MouseEvent e) {
                 
                 Point clickPoint = e.getPoint();
+                canDraw = false;
 
                 for (int i = 0; i < collectionSquares.size(); i++) {
 
                     if (collectionSquares.get(i).contains(clickPoint)) {
 
-                        //Set the currentLineColor to the same as the square you click on
-                        currentLineColor = collSquareColors.get(i);
-                        repaint(); //apply color change
+                        
+                        currentLineColor = collSquareColors.get(i); //Set the currentLineColor to the same as the square you click on
+                        canDraw = true; // Enable drawing since the click was over a square
+                        repaint();      //apply color change
+                        break;          // Exit loop once a square is found
 
-                        // Set up mouse listener for real-time drawing
-                        addMouseMotionListener(new MouseMotionAdapter() {
-                            @Override
-                            public void mouseDragged(MouseEvent e) {
-                                points.add(e.getPoint());
-                                repaint();
-                            }
-
-                        });
+                        
                         
                     }
 
@@ -53,7 +49,22 @@ public class DrawPanel extends JPanel {
 
             public void mouseReleased(MouseEvent e) {
 
-                points.removeAll(points);
+                points.clear();// Clear points when the mouse is released
+                repaint();      
+                canDraw = false;// Disable drawing after releasing the mouse
+            }
+
+        });
+
+        // Set up mouse listener for real-time drawing
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if(canDraw) { //Only allow drawing if canDraw = true
+                    points.add(e.getPoint());
+                    repaint();
+                }
+               
             }
 
         });
