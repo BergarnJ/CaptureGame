@@ -8,12 +8,14 @@ public class CreateWindow {
     private JFrame game_Window;
     private List<Rectangle> collectionSquares;
     private List<Color> collSquareColors;
+    public DrawPanel drawPanel;
 
     public CreateWindow() {
         // Set up JFrame
         game_Window = new JFrame();
         game_Window.setSize(1600, 800);
         game_Window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
 
         // Define squares and their colors
         collectionSquares = new ArrayList<>();
@@ -37,11 +39,15 @@ public class CreateWindow {
 
         
         // Create DrawPanel with these squares and colors
-        DrawPanel drawPanel = new DrawPanel(collectionSquares, collSquareColors);
+        drawPanel = new DrawPanel(collectionSquares, collSquareColors);
         game_Window.add(drawPanel);
         drawPanel.setBackground(Color.darkGray);
         
         // Show the window
         game_Window.setVisible(true);
+    }
+
+    public DrawPanel getDrawPanel() {
+        return drawPanel;
     }
 }
